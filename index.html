@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सरकारी नौकरियाँ - GovtJobsHub</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #e74c3c;
+            --light: #f8f9f9;
+            --dark: #17202a;
+            --bg: #f2f3f4;
+            --text: #333;
+            --card-bg: white;
+        }
+        
+        [data-theme="dark"] {
+            --primary: #3498db;
+            --secondary: #e74c3c;
+            --light: #2c3e50;
+            --dark: #ecf0f1;
+            --bg: #1a1a1a;
+            --text: #f8f9f9;
+            --card-bg: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Nirmala UI', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .language-switcher {
+            position: relative;
+        }
+
+        .language-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: var(--card-bg);
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 150px;
+            display: none;
+            z-index: 100;
+        }
+
+        .language-dropdown.show {
+            display: block;
+        }
+
+        .language-dropdown a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text);
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .language-dropdown a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .search-box {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: var(--card-bg);
+            color: var(--text);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .job-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .job-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .job-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .job-department {
+            color: var(--text);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        
+        .meta-item i {
+            color: var(--primary);
+        }
+        
+        .apply-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        .apply-btn:hover {
+            background: var(--dark);
+        }
+        
+        .urgent-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            padding: 8px 15px;
+            background: var(--card-bg);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* राज्य नौकरियों के लिए नया सेक्शन */
+        .state-jobs-section {
+            margin: 40px 0;
+        }
+        
+        .state-jobs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .state-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .state-btn {
+            padding: 6px 12px;
+            background: var(--card-bg);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .state-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .qualification-details {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .qualification-details h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .qualification-list {
+            padding-left: 20px;
+        }
+        
+        .qualification-list li {
+            margin-bottom: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--text);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+            }
+
+            .nav-menu.show {
+                display: flex;
+                margin-top: 15px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 15px;
+            }
+
+            .language-switcher {
+                margin-top: 15px;
+                width: 100%;
+            }
+
+            .language-dropdown {
+                width: 100%;
+            }
+            
+            .job-list {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .theme-toggle {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .state-jobs-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="nav-logo">GovtJobsHub</a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active"><i class="fas fa-home"></i> होम</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-poll"></i> परिणाम</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-id-card"></i> एडमिट कार्ड</a>
+                </li>
+                
+                <li class="nav-item language-switcher">
+                    <button class="language-btn" id="languageBtn">
+                        <i class="fas fa-language"></i> हिंदी <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <a href="#" data-lang="hi">हिंदी</a>
+                        <a href="#" data-lang="en">English</a>
+                        <a href="#" data-lang="mr">मराठी</a>
+                        <a href="#" data-lang="bn">বাংলা</a>
+                        <a href="#" data-lang="ta">தமிழ்</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>सरकारी नौकरियाँ</h1>
+            <p>भारत सरकार और राज्य सरकार की नवीनतम भर्तियाँ</p>
+            
+            <div class="theme-toggle">
+                <span><i class="fas fa-sun"></i></span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span><i class="fas fa-moon"></i></span>
+            </div>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" placeholder="नौकरी, विभाग या कीवर्ड खोजें..." id="searchInput">
+        </div>
+        
+        <div class="filter-options">
+            <button class="filter-btn active" data-filter="all">सभी</button>
+            <button class="filter-btn" data-filter="central">केंद्र सरकार</button>
+            <button class="filter-btn" data-filter="state">राज्य सरकार की नौकरियाँ</button>
+            <button class="filter-btn" data-filter="bank">बैंकिंग</button>
+            <button class="filter-btn" data-filter="defense">रक्षा</button>
+            <button class="filter-btn" data-filter="railway">रेलवे</button>
+            <button class="filter-btn" data-filter="ssc">SSC</button>
+            <button class="filter-btn" data-filter="upsc">UPSC</button>
+        </div>
+        
+        <!-- राज्य सरकार की नौकरियों का विशेष सेक्शन -->
+        <div class="state-jobs-section">
+            <div class="state-jobs-header">
+                <h2>राज्य सरकार की नौकरियाँ</h2>
+                <div class="state-filter">
+                    <button class="state-btn active" data-state="all">सभी राज्य</button>
+                    <button class="state-btn" data-state="up">उत्तर प्रदेश</button>
+                    <button class="state-btn" data-state="mp">मध्य प्रदेश</button>
+                    <button class="state-btn" data-state="mh">महाराष्ट्र</button>
+                    <button class="state-btn" data-state="bh">बिहार</button>
+                    <button class="state-btn" data-state="rj">राजस्थान</button>
+                </div>
+            </div>
+            
+            <div class="job-list" id="stateJobList">
+                <!-- राज्य नौकरियाँ डायनामिकली जेनरेट होंगी -->
+            </div>
+        </div>
+        
+        <div class="job-list" id="jobList">
+            <!-- केंद्र सरकार की नौकरियाँ डायनामिकली जेनरेट होंगी -->
+        </div>
+        
+        <div class="pagination">
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <footer>
+            <p>© <span id="year"></span> GovtJobsHub - सभी अधिकार सुरक्षित</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const root = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        root.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+        
+        // Toggle theme when switch is clicked
+        themeToggle.addEventListener('change', e => {
+            const theme = e.target.checked ? 'dark' : 'light';
+            root.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+        
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Language switcher
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        
+        languageBtn.addEventListener('click', () => {
+            languageDropdown.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-switcher')) {
+                languageDropdown.classList.remove('show');
+            }
+            
+            if (!e.target.closest('.mobile-menu-btn') && !e.target.closest('.nav-menu')) {
+                navMenu.classList.remove('show');
+            }
+        });
+        
+        // Language translation function (simplified example)
+        document.querySelectorAll('.language-dropdown a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.dataset.lang;
+                
+                // Change button text
+                const langText = this.textContent;
+                languageBtn.innerHTML = `<i class="fas fa-language"></i> ${langText} <i class="fas fa-chevron-down"></i>`;
+                
+                // Close dropdown
+                languageDropdown.classList.remove('show');
+                
+                // In a real implementation, you would:
+                // 1. Load translations from a JSON file or API
+                // 2. Update all text content on the page
+                // 3. Possibly change the HTML lang attribute
+                // 4. Save user preference
+                
+                console.log(`Language changed to: ${lang}`);
+                // For demo, we'll just show an alert
+                alert(`Language will be changed to ${langText}. In a real implementation, this would translate all content.`);
+            });
+        });
+        
+        // जॉब डेटा (आप इसे API से भी फेच कर सकते हैं)
+        const jobs = [
+            {
+                id: 1,
+                title: "IBPS SO (Specialist Officer)",
+                department: "Institute of Banking Personnel Selection",
+                type: "bank",
+                vacancies: "600+",
+                lastDate: "15 जनवरी 2025",
+                qualification: "स्नातक/स्नातकोत्तर",
+                link: "ibps-so.html"
+            },
+            {
+                id: 2,
+                title: "SSC CGL 2024",
+                department: "Staff Selection Commission",
+                type: "ssc",
+                vacancies: "7500+",
+                lastDate: "24 दिसंबर 2024",
+                qualification: "स्नातक",
+                link: "ssc-cgl.html"
+            },
+            {
+                id: 3,
+                title: "UPSC Civil Services 2025",
+                department: "Union Public Service Commission",
+                type: "upsc",
+                vacancies: "1000+",
+                lastDate: "21 फरवरी 2025",
+                qualification: "स्नातक",
+                link: "upsc-cse.html"
+            },
+            {
+                id: 4,
+                title: "रेलवे ग्रुप डी",
+                department: "भारतीय रेलवे",
+                type: "railway",
+                vacancies: "1,03,769",
+                lastDate: "12 दिसंबर 2024",
+                qualification: "10वीं/ITI",
+                link: "railway-group-d.html"
+            }
+        ];
+
+        // राज्य सरकार की नौकरियों का डेटा (विस्तृत योग्यता सहित)
+        const stateJobs = [
+            {
+                id: 101,
+                title: "UPPSC PCS 2024",
+                department: "उत्तर प्रदेश लोक सेवा आयोग",
+                type: "state",
+                state: "up",
+                vacancies: "220+",
+                lastDate: "05 जनवरी 2025",
+                qualification: {
+                    main: "स्नातक डिग्री",
+                    details: [
+                        "किसी मान्यता प्राप्त विश्वविद्यालय से स्नातक",
+                        "अंतिम वर्ष के छात्र भी आवेदन कर सकते हैं",
+                        "आयु सीमा: 21-40 वर्ष (आरक्षण के अनुसार छूट)"
+                    ]
+                },
+                link: "uppsc-pcs.html",
+                urgent: false
+            },
+            {
+                id: 102,
+                title: "MP Police Constable 2024",
+                department: "मध्य प्रदेश पुलिस",
+                type: "state",
+                state: "mp",
+                vacancies: "4000+",
+                lastDate: "20 दिसंबर 2024",
+                qualification: {
+                    main: "12वीं पास",
+                    details: [
+                        "मध्य प्रदेश के मूल निवासी",
+                        "ऊँचाई: पुरुष - 168 सेमी, महिला - 155 सेमी",
+                        "आयु: 18-28 वर्ष",
+                        "शारीरिक परीक्षण अनिवार्य"
+                    ]
+                },
+                link: "mp-police.html",
+                urgent: true
+            },
+            {
+                id: 103,
+                title: "बिहार शिक्षक भर्ती 2024",
+                department: "बिहार शिक्षा विभाग",
+                type: "state",
+                state: "bh",
+                vacancies: "1,20,000",
+                lastDate: "31 दिसंबर 2024",
+                qualification: {
+                    main: "B.Ed/D.El.Ed + TET पास",
+                    details: [
+                        "प्राथमिक शिक्षक के लिए D.El.Ed + CTET/BTET",
+                        "माध्यमिक शिक्षक के लिए B.Ed + विषय योग्यता",
+                        "आयु सीमा: 21-37 वर्ष",
+                        "बिहार के मूल निवासी होने चाहिए"
+                    ]
+                },
+                link: "bihar-teacher.html",
+                urgent: true
+            },
+            {
+                id: 104,
+                title: "राजस्थान पटवारी भर्ती 2024",
+                department: "राजस्थान राजस्व विभाग",
+                type: "state",
+                state: "rj",
+                vacancies: "5000+",
+                lastDate: "15 जनवरी 2025",
+                qualification: {
+                    main: "12वीं पास + कंप्यूटर ज्ञान",
+                    details: [
+                        "राजस्थान के मूल निवासी",
+                        "आयु: 18-40 वर्ष",
+                        "कंप्यूटर डिप्लोमा धारकों को प्राथमिकता",
+                        "लेखन परीक्षा और टाइपिंग टेस्ट अनिवार्य"
+                    ]
+                },
+                link: "rajasthan-patwari.html",
+                urgent: false
+            },
+            {
+                id: 105,
+                title: "महाराष्ट्र स्टाफ नर्स भर्ती",
+                department: "महाराष्ट्र स्वास्थ्य विभाग",
+                type: "state",
+                state: "mh",
+                vacancies: "2500+",
+                lastDate: "10 जनवरी 2025",
+                qualification: {
+                    main: "GNM/B.Sc Nursing",
+                    details: [
+                        "भारतीय नर्सिंग काउंसिल से मान्यता प्राप्त डिग्री",
+                        "न्यूनतम 1 वर्ष का अनुभव",
+                        "आयु सीमा: 21-38 वर्ष",
+                        "महाराष्ट्र डोमिसाइल अनिवार्य"
+                    ]
+                },
+                link: "maharashtra-nurse.html",
+                urgent: true
+            }
+        ];
+
+        // जॉब लिस्ट रेंडर करें
+        function renderJobs(filter = "all") {
+            const jobList = document.getElementById('jobList');
+            jobList.innerHTML = '';
+            
+            const filteredJobs = filter === "all" ? jobs : jobs.filter(job => job.type === filter);
+            
+            filteredJobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card';
+                jobCard.innerHTML = `
+                    <h3 class="job-title">${job.title}</h3>
+                    <p class="job-department">${job.department}</p>
+                    <div class="job-meta">
+                        <span class="meta-item"><i class="fas fa-user-plus"></i> ${job.vacancies} रिक्तियाँ</span>
+                        <span class="meta-item"><i class="far fa-calendar-alt"></i> अंतिम तिथि: ${job.lastDate}</span>
+                        <span class="meta-item"><i class="fas fa-graduation-cap"></i> ${job.qualification}</span>
+                    </div>
+                    <a href="${job.link}" class="apply-btn">आवेदन करें</a>
+                `;
+                jobList.appendChild(jobCard);
+            });
+        }
+
+        // राज्य नौकरियाँ रेंडर करें
+        function renderStateJobs(state = "all") {
+            const stateJobList = document.getElementById('stateJobList');
+            stateJobList.innerHTML = '';
+            
+            const filteredJobs = state === "all" ? stateJobs : stateJobs.filter(job => job.state === state);
+            
+            filteredJobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card';
+                jobCard.innerHTML = `
+                    <h3 class="job-title">${job.title} ${job.urgent ? '<span class="urgent-badge">तुरंत आवेदन करें</span>' : ''}</h3>
+                    <p class="job-department">${job.department}</p>
+                    <div class="job-meta">
+                        <span class="meta-item"><i class="fas fa-user-plus"></i> ${job.vacancies} रिक्तियाँ</span>
+                        <span class="meta-item"><i class="far fa-calendar-alt"></i> अंतिम तिथि: ${job.lastDate}</span>
+                        <span class="meta-item"><i class="fas fa-graduation-cap"></i> ${job.qualification.main}</span>
+                    </div>
+                    
+                    <div class="qualification-details">
+                        <h4>योग्यता विवरण:</h4>
+                        <ul class="qualification-list">
+                            ${job.qualification.details.map(detail => `<li>${detail}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <a href="${job.link}" class="apply-btn">आवेदन करें</a>
+                `;
+                stateJobList.appendChild(jobCard);
+            });
+        }
+
+        // फिल्टर बटन इवेंट
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderJobs(this.dataset.filter);
+            });
+        });
+
+        // राज्य फिल्टर बटन इवेंट
+        document.querySelectorAll('.state-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderStateJobs(this.dataset.state);
+            });
+        });
+
+        // सर्च फंक्शनैलिटी
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const jobCards = document.querySelectorAll('.job-card');
+            
+            jobCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // पेज लोड पर जॉब्स रेंडर करें
+        document.addEventListener('DOMContentLoaded', function() {
+            renderJobs();
+            renderStateJobs();
+        });
+    </script>
+</body>
+</html>
